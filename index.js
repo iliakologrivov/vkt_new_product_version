@@ -19,7 +19,7 @@ async function run() {
     console.log(`params: ${params_string}`);
 
     const response = await axios.post('https://api.vk.com/method/bugtracker.saveProductVersion', data);
-    core.debug(`Response: ${response}`);
+    console.log(`Response: ${response}`);
 
 
     core.setOutput('version_id', 0);
