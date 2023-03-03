@@ -22,5 +22,5 @@ jobs:
           product_id: 2478
           title: "${{ github.event.head_commit.id }}"
           release_notes: "${{ github.event.head_commit.message }}"
-          visible: 0
-          set_rft: 0
+          visible: false
+          set_rft: false
