@@ -17,10 +17,9 @@ jobs:
         env:
           API_TOKEN: ${{ secrets.PRODUCT_API_TOKEN }}
         with:
+          product_id: 2478
           title: "${{ github.event.release.tag_name }}"
           release_notes: "${{ github.event.release.name }}
           ${{ github.event.release.body }}"
-          token: '123123'
-          product_id: 9999
           visible: 1
           set_rft: 1

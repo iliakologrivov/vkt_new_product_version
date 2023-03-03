@@ -29,6 +29,3 @@ jobs:
         uses: iliakologrivov/vkt_new_product_version@master
         env:
           API_TOKEN: ${{ secrets.PRODUCT_API_TOKEN }}
-        with:
-          token: '123123'
-          product_id: 9999
