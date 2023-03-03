@@ -18,7 +18,7 @@ jobs:
       - name: Create new product version
         uses: iliakologrivov/vkt_new_product_version@master
         with:
-          token: '123123'
-          product_id: 9999
+          title: "${{ github.event.head_commit.id }}"
+          release_notes: "${{ github.event.head_commit.message }}"
           visible: 1
           set_rft: 1

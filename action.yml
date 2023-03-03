@@ -2,11 +2,11 @@ name: 'Vk Testers new product version'
 description: 'Creating version in product Vk testers'
 inputs:
   title:
-    description: 'version name'
-    default: ''
+    description: 'Version name'
+    required: true
   release_notes:
-    description: 'release notes fro version'
-    default: ''
+    description: 'Release notes fro version'
+    required: true
   token:
     description: 'Product token for api'
     required: true

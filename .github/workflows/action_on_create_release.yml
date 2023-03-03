@@ -15,7 +15,8 @@ jobs:
         uses: iliakologrivov/vkt_new_product_version@master
         with:
           title: "${{ github.event.release.tag_name }}"
-          release_notes: "${{ github.event.release.name }}\n${{ github.event.release.body }}"
+          release_notes: "${{ github.event.release.name }}
+          ${{ github.event.release.body }}"
           token: '123123'
           product_id: 9999
           visible: 1

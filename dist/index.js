@@ -9777,24 +9777,6 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 
-
-function createTitle() {
-  if (github.context.eventName === 'push') {
-    if (github.context.payload.ref.indexOf('refs/tags/') > -1) {
-      return github.context.payload.ref.slice(9, -1);
-    }
-  }
-
-  return github.context.payload.head_commit.id;
-}
-
-function createReleaseNotes() {
-  switch (github.context.eventName) {
-    case 'push':
-      return github.context.payload.head_commit.message;
-  }
-}
-
 async function run() {
   try {
     const params = {
@@ -9804,37 +9786,24 @@ async function run() {
       assembly_id: 0,
       title: core.getInput('title'),
       release_notes: core.getInput('release_notes'),
-      visible: '',
-      set_rft: '',
+      visible: core.getInput('visible'),
+      set_rft: core.getInput('set_rft'),
     };
-    if (params.title.trim().length < 1) {
-      params.title = createTitle();
-    }
 
-    if (params.release_notes.trim().length < 1) {
-      params.release_notes = createReleaseNotes();
-    }
-
-    // if (github.context.eventName === 'push') {
-
-    // core.info(`The event name is: ${github.context.eventName}`)
-    // core.info(JSON.stringify(github.context.payload));
-    // }
-
-    // let PARAMS = {
-    //   token: core.getInput('token'),
-    //   product_id: core.getInput('product_id'),
-    //   version_id: 0,
-    //   assembly_id: 0,
-    //   title: '',
-    //   release_notes: '',
-    //   visible: '',
-    //   set_rft: '',
-    // };
-    //
-    // fetch('https://api.vk.com/method/bugtracker.saveProductVersion', {})
     const params_string = JSON.stringify(params, undefined, 2);
     console.log(`params: ${params_string}`);
+
+
+    const response = await fetch('https://api.vk.com/method/bugtracker.saveProductVersion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(params),
+    });
+    const result = response.json();
+    const result_string = JSON.stringify(result, undefined, 2);
+    console.log(`response: ${result_string}`);
 
 
     core.setOutput('version_id', 0);

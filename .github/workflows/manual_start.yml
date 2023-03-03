@@ -1,8 +1,14 @@
-name: Hello
+name: manual start
 
 on:
   workflow_dispatch:
     inputs:
+      title:
+        description: version name
+        required: true
+      release_notes:
+        description: Release notes
+        required: true
       token:
         description: Visible
         required: true
@@ -11,25 +17,16 @@ on:
         description: Set rft?
         required: true
         default: '1'
-      name:
-        description: version name
-        default: ''
-      release_notes:
-        description: Release notes
-        default: ''
 
 jobs:
-  Hello:
+  CreateNewProductVersion:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Hello
+      - name: sendRequestToVKApi
         uses: iliakologrivov/vkt_new_product_version@master
         with:
           token: '123123'
           product_id: 9999
-          visible: 1
-          set_rft: 1
