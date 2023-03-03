@@ -1,0 +1,24 @@
+name: on push
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  createVersionOnCreateTag:
+    runs-on: ubuntu-latest
+    name: Create new product version
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create new product version
+        uses: iliakologrivov/vkt_new_product_version@master
+        with:
+          token: '123123'
+          product_id: 9999
+          visible: 1
+          set_rft: 1

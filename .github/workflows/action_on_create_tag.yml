@@ -1,21 +1,18 @@
-name: action1
+name: on create tag
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+    tags:
+      - '*'
 
 jobs:
-  deploy:
+  createVersionOnPush:
     runs-on: ubuntu-latest
-    name: Deploy job
+    name: Create new product version
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Create new version
+      - name: Create new product version
         uses: iliakologrivov/vkt_new_product_version@master
         with:
           token: '123123'

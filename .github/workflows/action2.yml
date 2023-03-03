@@ -3,10 +3,20 @@ name: Hello
 on:
   workflow_dispatch:
     inputs:
-      Name:
-        description: Who to greet
+      token:
+        description: Visible
         required: true
-        default: 'GitHub Actions'
+        default: '1'
+      set_rft:
+        description: Set rft?
+        required: true
+        default: '1'
+      name:
+        description: version name
+        default: ''
+      release_notes:
+        description: Release notes
+        default: ''
 
 jobs:
   Hello:
