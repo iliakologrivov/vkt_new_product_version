@@ -17457,8 +17457,8 @@ async function run() {
     console.log(`params: ${params_string}`);
 
     const response = await axios.post('https://api.vk.com/method/bugtracker.saveProductVersion', data);
-    console.log(`Response: ${response}`);
-
+    const response_text = JSON.stringify(response, undefined, 2);
+    console.log(`Response: ${response_text}`);
 
     core.setOutput('version_id', 0);
     // Get the JSON webhook payload for the event that triggered the workflow
