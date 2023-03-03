@@ -19,6 +19,7 @@ jobs:
         uses: iliakologrivov/vkt_new_product_version@master
         with:
           token: "${{ secrets.PRODUCT_API_TOKEN }}"
+          product_id: 2478
           title: "${{ github.event.head_commit.id }}"
           release_notes: "${{ github.event.head_commit.message }}"
           visible: 0
