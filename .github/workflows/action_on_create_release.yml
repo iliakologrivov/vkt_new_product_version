@@ -11,8 +11,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Create new product version
         uses: iliakologrivov/vkt_new_product_version@master
+        env:
+          API_TOKEN: ${{ secrets.PRODUCT_API_TOKEN }}
         with:
           title: "${{ github.event.release.tag_name }}"
           release_notes: "${{ github.event.release.name }}
