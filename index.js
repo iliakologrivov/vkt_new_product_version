@@ -1,11 +1,10 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const fetch = require('./fetch');
-const https = require('https');
+const axios = require('axios');
 
 async function run() {
   try {
-    const params = {
+    const data = {
       token: core.getInput('token'),
       product_id: core.getInput('product_id'),
       version_id: 0,
@@ -16,16 +15,10 @@ async function run() {
       set_rft: core.getInput('set_rft'),
     };
 
-    const params_string = JSON.stringify(params, undefined, 2);
+    const params_string = JSON.stringify(data, undefined, 2);
     console.log(`params: ${params_string}`);
 
-    const response = https.get('https://api.vk.com/method/bugtracker.saveProductVersion', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(params),
-    });
+    const response = await axios.post('https://api.vk.com/method/bugtracker.saveProductVersion', data);
     core.debug(`Response: ${response}`);
 
 
