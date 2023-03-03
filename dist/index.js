@@ -17444,13 +17444,13 @@ async function run() {
   try {
     const data = {
       token: core.getInput('token'),
-      product_id: core.getInput('product_id'),
+      product_id: Number(core.getInput('product_id')),
       version_id: 0,
       assembly_id: 0,
       title: core.getInput('title'),
       release_notes: core.getInput('release_notes'),
-      visible: core.getInput('visible'),
-      set_rft: core.getInput('set_rft'),
+      visible: core.getBooleanInput('visible'),
+      set_rft: core.getBooleanInput('set_rft'),
     };
 
     const params_string = JSON.stringify(data, undefined, 2);
