@@ -19,6 +19,10 @@ async function run() {
     console.log(`params: ${params_string}`);
 
     const response = await axios.post('https://api.vk.com/method/bugtracker.saveProductVersion', data);
+    if (response.data.error) {
+      throw new Error(response.data.error.error_msg);
+    }
+
     const response_text = JSON.stringify(response.data, undefined, 2);
     console.log(`Response: ${response_text}`);
 
