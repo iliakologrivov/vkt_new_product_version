@@ -1,0 +1,22 @@
+name: After Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  createVersionOnRelease:
+    runs-on: ubuntu-latest
+    name: Create new product version
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create new product version
+        uses: iliakologrivov/vkt_new_product_version@master
+        with:
+          title: "${{ github.event.release.name }}"
+          release_notes: "${{ github.event.release.body }}"
+          token: '123123'
+          product_id: 9999
+          visible: 1
+          set_rft: 1

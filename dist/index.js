@@ -9779,10 +9779,13 @@ const github = __nccwpck_require__(5438);
 
 
 function createTitle() {
-  switch (github.context.eventName) {
-    case 'push':
-      return github.context.payload.head_commit.id;
+  if (github.context.eventName === 'push') {
+    if (github.context.payload.ref.indexOf('refs/tags/') > -1) {
+      return github.context.payload.ref.slice(9, -1);
+    }
   }
+
+  return github.context.payload.head_commit.id;
 }
 
 function createReleaseNotes() {
