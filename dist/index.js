@@ -17443,7 +17443,7 @@ const axios = __nccwpck_require__(1441);
 async function run() {
   try {
     const data = {
-      token: core.getInput('token'),
+      token: process.env.API_TOKEN,
       product_id: Number(core.getInput('product_id')),
       version_id: 0,
       assembly_id: 0,

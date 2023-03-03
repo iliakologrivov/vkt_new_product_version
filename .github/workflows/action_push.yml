@@ -19,7 +19,7 @@ jobs:
       - name: Create new product version
         uses: iliakologrivov/vkt_new_product_version@master
         env:
-          API_TOKEN: ${{ secrets.PRODUCT_API_TOKEN }}
+          API_TOKEN: "123123123"
         with:
           token: "${{ secrets.PRODUCT_API_TOKEN }}"
           product_id: 2478
