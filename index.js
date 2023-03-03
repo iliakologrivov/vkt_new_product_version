@@ -60,7 +60,9 @@ async function run() {
 
     core.setOutput('version_id', 0);
     // Get the JSON webhook payload for the event that triggered the workflow
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
+    const payload = JSON.stringify(github.context.payload, undefined, 2);
+    const eventName = github.context.eventName;
+    console.log(`The event name: ${eventName}`);
     console.log(`The event payload: ${payload}`);
   } catch (error) {
     core.setFailed(error.message);
