@@ -19,15 +19,16 @@ async function run() {
     console.log(`params: ${params_string}`);
 
     const response = await axios.post('https://api.vk.com/method/bugtracker.saveProductVersion', data);
-    const response_text = JSON.stringify(response, undefined, 2);
+    const response_text = JSON.stringify(response.data, undefined, 2);
     console.log(`Response: ${response_text}`);
 
-    core.setOutput('version_id', 0);
     // Get the JSON webhook payload for the event that triggered the workflow
     const payload = JSON.stringify(github.context.payload, undefined, 2);
     const eventName = github.context.eventName;
     console.log(`The event name: ${eventName}`);
     console.log(`The event payload: ${payload}`);
+
+    core.setOutput('version_id', 0);
   } catch (error) {
     core.setFailed(error.message);
   }
