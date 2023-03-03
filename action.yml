@@ -1,0 +1,22 @@
+name: 'Vk Testers new product version'
+description: 'Creating version in product Vk testers'
+inputs:
+  token:
+    description: 'Product token for api'
+    required: true
+  product_id:
+    description: 'Product ID'
+    required: true
+  visible:
+    description: 'hidden or visible version (0 | 1)'
+    required: true
+    default: '1'
+  set_rft:
+    description: ''
+    required: true
+outputs:
+  version_id:
+    description: 'generated version ID'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

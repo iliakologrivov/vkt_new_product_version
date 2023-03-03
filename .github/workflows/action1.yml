@@ -1,0 +1,24 @@
+name: action1
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create new version
+        uses: iliakologrivov/vkt_new_product_version@master
+        with:
+          token: '123123'
+          product_id: 9999
+          visible: 1
+          set_rft: 1

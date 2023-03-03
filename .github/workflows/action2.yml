@@ -1,0 +1,25 @@
+name: Hello
+
+on:
+  workflow_dispatch:
+    inputs:
+      Name:
+        description: Who to greet
+        required: true
+        default: 'GitHub Actions'
+
+jobs:
+  Hello:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Hello
+        uses: iliakologrivov/vkt_new_product_version@master
+        with:
+          token: '123123'
+          product_id: 9999
+          visible: 1
+          set_rft: 1
