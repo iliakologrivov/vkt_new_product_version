@@ -1,6 +1,33 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 9702:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+module.exports = function fetch(url) {
+  // return new pending promise
+  return new Promise((resolve, reject) => {
+    // select http or https module, depending on reqested url
+    const lib = __nccwpck_require__(7211);
+    const request = lib.get(url, (response) => {
+      // handle http errors
+      if (response.statusCode < 200 || response.statusCode > 299) {
+        reject(new Error('Failed to load page, status code: ' + response.statusCode));
+      }
+      // temporary data holder
+      const body = [];
+      // on every content chunk, push it to the data array
+      response.on('data', (chunk) => body.push(chunk));
+      // we are done, resolve promise with those joined chunks
+      response.on('end', () => resolve(body.join('')));
+    });
+    // handle connection errors of the request
+    request.on('error', (err) => reject(err))
+  })
+};
+
+/***/ }),
+
 /***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -9776,6 +9803,8 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
+const fetch = __nccwpck_require__(9702);
+const https = __nccwpck_require__(7211);
 
 async function run() {
   try {
@@ -9793,17 +9822,14 @@ async function run() {
     const params_string = JSON.stringify(params, undefined, 2);
     console.log(`params: ${params_string}`);
 
-
-    const response = await fetch('https://api.vk.com/method/bugtracker.saveProductVersion', {
+    const response = https.get('https://api.vk.com/method/bugtracker.saveProductVersion', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify(params),
     });
-    const result = response.json();
-    const result_string = JSON.stringify(result, undefined, 2);
-    console.log(`response: ${result_string}`);
+    core.debug(`Response: ${response}`);
 
 
     core.setOutput('version_id', 0);

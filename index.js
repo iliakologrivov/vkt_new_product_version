@@ -1,5 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const fetch = require('./fetch');
+const https = require('https');
 
 async function run() {
   try {
@@ -17,17 +19,14 @@ async function run() {
     const params_string = JSON.stringify(params, undefined, 2);
     console.log(`params: ${params_string}`);
 
-
-    const response = await fetch('https://api.vk.com/method/bugtracker.saveProductVersion', {
+    const response = https.get('https://api.vk.com/method/bugtracker.saveProductVersion', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify(params),
     });
-    const result = response.json();
-    const result_string = JSON.stringify(result, undefined, 2);
-    console.log(`response: ${result_string}`);
+    core.debug(`Response: ${response}`);
 
 
     core.setOutput('version_id', 0);
